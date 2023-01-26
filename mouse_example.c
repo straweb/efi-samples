@@ -27,7 +27,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
+ 
 #include "efibind.h"
 #include "efidef.h"
 #include "efidevp.h"
@@ -50,7 +50,7 @@ void printInt(SIMPLE_TEXT_OUTPUT_INTERFACE *conOut, int value) {
 	ptr += 31;
 	*--ptr = 0;
 	int tmp = value;// >= 0 ? value : -value; 
-
+	
 	while (tmp) {
 		*--ptr = '0' + tmp % 10;
 		tmp /= 10;

@@ -35,17 +35,13 @@ EXAMPLES=example.efi gfx_example.efi disk_example.efi mouse_example.efi touch_ex
 COMMON = glue/$(ARCH)/relocation_func.o glue/$(ARCH)/start_func.o
 
 %.efi: %.so
-	echo "objcopy to efi file"
 	objcopy -j .text -j .sdata -j .data -j .dynamic -j .dynsym -j .rel \
 		-j .rela -j .reloc -S --target=$(FORMAT) $^ $@
 
 %.so: %.o
-	echo $(ARCH)
-	echo "link object file file"
 	$(LD) $(LDFLAGS) -o $@ $^ $(shell $(CC) $(CFLAGS) -print-libgcc-file-name)
 
 %.S: %.c
-	echo "compile c file"
 	$(CC) $(INCDIR) $(CFLAGS) $(CPPFLAGS) -S $< -o $@
 
 #TODO: At the moment only x86_64 is tested.
@@ -81,15 +77,14 @@ all: $(EXAMPLES)
 example.so: $(COMMON) example.o
 gfx_example.so: $(COMMON) gfx_example.o
 disk_example.so: $(COMMON) disk_example.o
-mouse_example.so: $(COMMON) mouse_example.o
 touch_example.so: $(COMMON) touch_example.o
+mouse_example.so: $(COMMON) mouse_example.o
 
 clean:
-	rm -rfd bin
-	rm -f $(EXAMPLES) *.so $(COMMON) example.o gfx_example.o disk_example.o mouse_example.o touch_example.o
+	rm -f $(EXAMPLES) *.so $(COMMON) example.o gfx_example.o disk_example.o
 
 run:
 	cp *.efi hd/
-	qemu-system-x86_64 -enable-kvm -L . -hda fat:hd -hdc hd.image
+	./qemu-system-x86_64 -bios OVMF.fd -hda fat:hd -L bios/
 
 go: all run

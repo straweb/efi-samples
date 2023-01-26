@@ -1,4 +1,3 @@
-
 /** @file
   The file provides services that allow information about an
   relative/absolute pointer device to be retrieved.
@@ -8,9 +7,12 @@
   are licensed and made available under the terms and conditions of the BSD License         
   which accompanies this distribution.  The full text of the license may be found at        
   http://opensource.org/licenses/bsd-license.php                                            
+
   THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,                     
   WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.             
+
 **/
+
 #include "efiprot.h"
 
 #define EFI_SIMPLE_POINTER_PROTOCOL_GUID \
@@ -187,16 +189,20 @@ typedef struct {
   to occur as quickly as possible. The hardware verification
   process is not defined by this specification and is left up to
   the platform firmware or driver to implement.
+
   @param This                 A pointer to the EFI_ABSOLUTE_POINTER_PROTOCOL
                               instance.
+
   @param ExtendedVerification Indicates that the driver may
                               perform a more exhaustive
                               verification operation of the
                               device during reset.
+
   @retval EFI_SUCCESS       The device was reset.
   
   @retval EFI_DEVICE_ERROR  The device is not functioning
                             correctly and could not be reset.
+
 **/
 typedef
 EFI_STATUS
@@ -227,7 +233,7 @@ typedef struct {
   /// must be ignored.
   ///
   UINT64 CurrentX;
-
+  
   ///
   /// The unsigned position of the activation on the x axis. If the AboluteMinY 
   /// and the AboluteMaxY fields of the EFI_ABSOLUTE_POINTER_MODE structure are 
@@ -235,7 +241,7 @@ typedef struct {
   /// must be ignored.  
   ///
   UINT64 CurrentY;
-
+  
   ///
   /// The unsigned position of the activation on the x axis, or the pressure 
   /// measurement. If the AboluteMinZ and the AboluteMaxZ fields of the 
@@ -243,7 +249,7 @@ typedef struct {
   /// does not support an z-axis, and this field must be ignored.  
   ///
   UINT64 CurrentZ;
-
+  
   ///
   /// Bits are set to 1 in this structure item to indicate that device buttons are
   /// active.
@@ -262,17 +268,24 @@ typedef struct {
   information is placed in State, and EFI_SUCCESS is returned. If
   a device error occurs while attempting to retrieve the state
   information, then EFI_DEVICE_ERROR is returned.
+
+
   @param This   A pointer to the EFI_ABSOLUTE_POINTER_PROTOCOL
                 instance.
+
   @param State  A pointer to the state information on the
                 pointer device.
+
   @retval EFI_SUCCESS       The state of the pointer device was
                             returned in State.
+
   @retval EFI_NOT_READY     The state of the pointer device has not
                             changed since the last call to GetState().
+
   @retval EFI_DEVICE_ERROR  A device error occurred while
                             attempting to retrieve the pointer
                             device's current state.
+
 **/
 typedef
 EFI_STATUS
@@ -302,3 +315,4 @@ struct _EFI_ABSOLUTE_POINTER_PROTOCOL {
   ///
   EFI_ABSOLUTE_POINTER_MODE       *Mode;
 };
+
